@@ -24,14 +24,6 @@ class Board extends React.Component {
     }
 
     render() {
-        // const winner = calculateWinner(this.state.squares)
-        // let status
-        // if (winner) {
-        //     status = 'Winner: ' + winner
-        // } else {
-        //     status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O')
-        // }
-
         return (
             <div>
                 <div className="board-row">
@@ -58,9 +50,11 @@ class Game extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            history: [{
-                squares: Array(9).fill(null),
-            }],
+            history: [
+                {
+                    squares: Array(9).fill(null),
+                }
+            ],
             stepNumber: 0,
             xIsNext: true,
         }
@@ -76,9 +70,11 @@ class Game extends React.Component {
         }
         squares[i] = this.state.xIsNext ? 'X' : 'O'
         this.setState({
-            history: history.concat([{
-                squares: squares,
-            }]),
+            history: history.concat([
+                {
+                    squares: squares
+                }
+            ]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext,
         })
@@ -86,14 +82,14 @@ class Game extends React.Component {
 
     jumpTo(step) {
         this.setState({
-            stepNumber: step, 
+            stepNumber: step,
             xIsNext: (step % 2) === 0,
         })
     }
 
     render() {
         const history = this.state.history
-        const current = history[this.state.stepNumber - 1]
+        const current = history[this.state.stepNumber]
         const winner = calculateWinner(current.squares)
 
         const moves = history.map((step, move) => {
